@@ -45,14 +45,28 @@ export const ItemController = {
 
   async createItem(req: Request, res: Response) {
     try {
-      const { name, description } = req.body;
+      const { name, category, color, description, image_url } = req.body;
       
-      if (!name) {
-        return res.status(400).json({ error: 'Name is required' });
+      if (!name || !category || !color) {
+        return res.status(400).json({ error: 'Name, category, and color are required' });
       }
 
-      const newItemId = await ItemModel.create({ name, description });
-      res.status(201).json({ id: newItemId, name, description });
+      const newItemId = await ItemModel.create({ 
+        name, 
+        category, 
+        color, 
+        description, 
+        image_url 
+      });
+
+      res.status(201).json({ 
+        id: newItemId, 
+        name, 
+        category, 
+        color, 
+        description, 
+        image_url 
+      });
     } catch (error) {
       res.status(500).json({ error: 'Failed to create item' });
     }
@@ -61,10 +75,12 @@ export const ItemController = {
   async updateItem(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
-      const { name, description } = req.body;
+      const { name, category, color, description, image_url } = req.body;
       
-      if (req.method === 'PUT' && !name) {
-        return res.status(400).json({ error: 'Name is required for PUT request' });
+      if (req.method === 'PUT' && (!name || !category || !color)) {
+        return res.status(400).json({ 
+          error: 'Name, category, and color are required for PUT request' 
+        });
       }
 
       const existingItem = await ItemModel.getById(id);
@@ -73,10 +89,13 @@ export const ItemController = {
       }
 
       const updatedItem = req.method === 'PUT'
-        ? { name, description }
+        ? { name, category, color, description, image_url }
         : {
             name: name ?? existingItem.name,
-            description: description ?? existingItem.description
+            category: category ?? existingItem.category,
+            color: color ?? existingItem.color,
+            description: description ?? existingItem.description,
+            image_url: image_url ?? existingItem.image_url
           };
 
       await ItemModel.update(id, updatedItem);
