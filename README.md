@@ -18,3 +18,56 @@ A web application built with Node.js, Express, and SQLite3 that helps you manage
 ## Local Installation
 
 1. Clone the repository:
+bash
+git clone https://github.com/your-username/web-app.git
+cd web-app
+
+2. Install dependencies:
+bash
+npm install
+
+3. Create a `.env` file in the root directory (optional):
+env
+PORT=3000
+NODE_ENV=development
+
+4. Build the application:
+bash
+npm run build
+
+5. Start the application:
+bash
+npm start
+
+For development with auto-reload:
+bash
+npm run dev
+
+6. Open your browser and navigate to `http://localhost:3000`
+
+
+## CSV Import Format
+To import items in bulk, prepare a CSV file with the following columns:
+- name (required)
+- category (required)
+- color (required)
+- description (optional)
+- image_url (optional)
+
+Example:
+csv
+name,category,color,description,image_url
+Blue Jeans,bottoms,blue,Favorite pair of jeans,https://example.com/jeans.jpg
+
+## Live Demo
+
+- GitHub Repository: https://github.com/your-username/web-app
+- Live Demo: https://your-app-name.onrender.com
+
+## Technologies Used
+
+- Node.js
+- Express
+- SQLite3
+- TypeScript
+- Tailwind CSS
